@@ -351,6 +351,43 @@ min-height: 320px;
 }
 
 
+.makan_product_table{
+   
+}
+.makan_product_row{
+   
+}
+
+.makan_product_column1{
+    
+}
+
+div.makan_buy_cell, div.makan_product_column2{
+    display: inline;
+    width: 300px;
+    float: left;
+    margin-bottom: 15px;
+}
+
+div.makan_buy_cell>div{
+    margin: 0 auto;
+}
+
+div.makan_buy_cell div.ow_center{
+   /* width: 100%; */
+}
+
+div.makan_buy_cell div.ow_center div.js_dropdown{
+	margin: 0 auto;
+	width: 250px;
+}
+
+.makan-item-description, div.makan_product_column1{
+    word-wrap:break-word;
+    margin: auto;
+    width: 70%;
+    float: left;	
+}
 
 
 

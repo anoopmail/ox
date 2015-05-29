@@ -257,12 +257,12 @@ if (!$contentlang){
 
 echo "<"."!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">
 <html xmlns=\"http://www.w3.org/1999/xhtml\" lang=\"[ttcontentlang]\" dir=\"ltr\" style=\"min-width:auto;margin:auto;padding:auto;white-space:normal;\">
-<head>
+<head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=windows-1252\">
 <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">
 <title>Page a6.pl</title>
 <meta name=\"keywords\" content=\"a6.pl\" />
 <meta name=\"description\" content=\"a6.pl\" />
-<meta http-equiv=\"Content-type\" content=\"text/html; charset=".$charset."\" />
+
 <meta http-equiv=\"Content-language\" content=\"".$contentlang."\" />
 
 <link rel=\"stylesheet\" type=\"text/css\" href=\"".$curent_url."ow_static/plugins/base/css/ow.css\" media=\"all\" />
@@ -2447,15 +2447,16 @@ $curent_lang_def=SHOPPRO_BOL_Service::getInstance()->get_system_lang_id();//defa
                                 $seo_title=stripslashes($value['name']);
                                 $seo_title=$this->make_seo_url($seo_title,100);
 //----tems for table
-                                $products .="<tr class=\"ow_alt".$curent."\" style=\"\">";
+//                                 $products .="<tr class=\"ow_alt".$curent."\" style=\"\">";
+                                $products .="<div class=\"ow_alt".$curent."\" style=\"\">";
 
 //-----avatar on products list start ------------------------------------------------------------------------------------------------------------------- start
                                 if (!OW::getConfig()->getValue('shoppro', 'hide_seller_avatar_onthelist')){
 
-                                    $products .="<td style=\"width:100px;text-align:center;\" nowrap=\"nowrap\" valign=\"top\">";
+                                    $products .="<div style=\"width:100px;text-align:center;\" nowrap=\"nowrap\" valign=\"top\">";
                                     $products .="<div class=\"ow_my_avatar_widget clearfix\">";
                                     if ($uimg){
-                                        $products .="<div class=\"ow_alt".$curent_revers." ow_center clearfix\" style=\"text-align:center;\">";
+                                        $products .="<div class=\"ow_alt".$curent_revers." ow_center clearfix makan_username\" style=\"text-align:center;\">";
                                         $products .=OW::getLanguage()->text('shoppro', 'product_table_seler').": ";
                                         $products .="</div>";
     
@@ -2537,28 +2538,28 @@ $curent_lang_def=SHOPPRO_BOL_Service::getInstance()->get_system_lang_id();//defa
 
 
                                     if ($id_user>0 AND $value['id_owner']==$id_user AND ($params['optmy']=="show" OR (isset($_GET['my']) AND $_GET['my']=="show"))){
-                                            $products .="<div class=\"ow_alt".$curent_revers."\" clearfix\" style=\"text-align:center;\">";
+                                            $products .="<div class=\"ow_alt".$curent_revers." clearfix\" style=\"text-align:center;\">";
                                             if ($value['items']<1){
-                                                $products .="<div class=\"ow_alt".$curent_revers."\" clearfix\" style=\"text-align:center;color:#f00;\">";
+                                                $products .="<div class=\"ow_alt".$curent_revers." clearfix\" style=\"text-align:center;color:#f00;\">";
                                                 $products .=OW::getLanguage()->text('shoppro', 'bay_error_item_wassaled');
                                                 $products .="</div>";
                                             }else if ($value['active']==1){
-                                                $products .="<div class=\"ow_alt".$curent_revers."\" clearfix\" style=\"text-align:center;color:#080;\">";
+                                                $products .="<div class=\"ow_alt".$curent_revers." clearfix\" style=\"text-align:center;color:#080;\">";
                                                 $products .=OW::getLanguage()->text('shoppro', 'product_table_active');
                                                 $products .="</div>";
                                             }else if ($value['active']==-1){
-                                                $products .="<div class=\"ow_alt".$curent_revers."\" clearfix\" style=\"text-align:center;color:#f00;\">";
+                                                $products .="<div class=\"ow_alt".$curent_revers." clearfix\" style=\"text-align:center;color:#f00;\">";
                                                 $products .=OW::getLanguage()->text('shoppro', 'product_table_deleted');
                                                 $products .="</div>";
                                             }else{
-                                                $products .="<div class=\"ow_alt".$curent_revers."\" clearfix\" style=\"text-align:center;color:#f00;\">";
+                                                $products .="<div class=\"ow_alt".$curent_revers." clearfix\" style=\"text-align:center;color:#f00;\">";
                                                 $products .=OW::getLanguage()->text('shoppro', 'product_table_moderation');
                                                 $products .="</div>";
                                             }
                                             $products .="</div>";
                                     }
 
-                                    $products .="</td>";
+                                    $products .="</div>";
 
                                 }//if (!OW::getConfig()->getValue('shoppro', 'hide_seller_avatar_onthelist')){
 //-----avatar on products list end ------------------------------------------------------------------------------------------------------------------- end
@@ -2567,10 +2568,10 @@ $curent_lang_def=SHOPPRO_BOL_Service::getInstance()->get_system_lang_id();//defa
 
 
 
-                            $products .="<td valign=\"top\" style=\"word-wrap:break-word;width: 100%;margin: auto;\">";
+                            $products .="<div class=\"makan-item-description\" >";
                                 $products .="<div id=\"product_".$value['id']."\" class=\"products_tocart clearfix\" style=\"word-wrap:break-word;margin-top:20px;\">";//============================================================== start product
 
-                                    $products .="<div class=\"ow_alt\" clearfix\" style=\"word-wrap:break-word;margin-bottom:20px;\">";
+                                    $products .="<div class=\"ow_alt clearfix\" style=\"word-wrap:break-word;margin-bottom:20px;\">";
                                         $products .="<h2 class=\"listing-header\">";
                                             $products .="<a href=\"".$curent_url."product/".$value['id']."/zoom/".$seo_title.".html\" alt=\"".stripslashes($value['name'])."\" style=\"font-weight:bold;margin:4px;\">";
 
@@ -2703,7 +2704,7 @@ $curent_lang_def=SHOPPRO_BOL_Service::getInstance()->get_system_lang_id();//defa
                                 $products .="</div>";//============================================================================================================================================================================================== end product 
 
 
-                            $products .="</td>";
+                            $products .="</div>";
 
 
 
@@ -2716,7 +2717,7 @@ $curent_lang_def=SHOPPRO_BOL_Service::getInstance()->get_system_lang_id();//defa
                             }
                             $table ="";
 
-                            $products .="<td style=\"width:100px;text-align:center;".$bg."\" valign=\"top\">";
+                            $products .="<div class=\"makan_buy_cell\" " .$bg.">";
 
 //aronlist aron list bay aron bay1
                             //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------pay by credit 1
@@ -2792,8 +2793,8 @@ $curent_lang_def=SHOPPRO_BOL_Service::getInstance()->get_system_lang_id();//defa
                                 }
                             }
 
-                            $products .="</td>";
-                        $products .="</tr>";
+                            $products .="</div>";
+                        $products .="</div>";
 
 
 
@@ -2801,11 +2802,11 @@ $curent_lang_def=SHOPPRO_BOL_Service::getInstance()->get_system_lang_id();//defa
 
 
                         //space
-                        $products .="<tr>";
-                        $products .="<td colspan=\"3\" style=\"height:3px;\">";
+                        $products .="<div>";
+                        $products .="<div colspan=\"3\" style=\"height:3px;\">";
 //                        $products .="&nbsp;";
-                        $products .="</td>";
-                        $products .="</tr>";
+                        $products .="</div>";
+                        $products .="</div>";
 
 
 
@@ -2887,18 +2888,19 @@ $curent_lang_def=SHOPPRO_BOL_Service::getInstance()->get_system_lang_id();//defa
                                 $content .=$product_grid;
                                 $content .="</ul>";
                 }else{//-------------------------------------------------------------------------------------------list view
-//                                $content .="<table style=\"width:100%;margin:auto;\">";
-                                $content .="<table style=\"margin:auto;\" class=\"ow_table\">";
+                		$content .= '<div class="makan_main">';
+//                 		$content .="<table style=\"margin:auto;\" class=\"ow_table\">";
                 		if ($products){
 		    	            $content .=$products;
 				}else{
-                                    $content .="<tr>";
-                                    $content .="<td colspan=\"4\">";
+                                    $content .="<div>";
+                                    $content .="<div colspan=\"4\">";
                                     $content .=OW::getLanguage()->text('shoppro', 'product_not_found');
-                                    $content .="</td>";
-                                    $content .="</tr>";
+                                    $content .="</div>";
+                                    $content .="</div>";
                                 }
-                                $content .="</table>";
+//                                 $content .="</table>";
+                                $content .= "</div>";
                 }//-----------------------------------------------------------------------------------------------list view end
 
 		$content .="</div>";
@@ -7402,12 +7404,12 @@ $curent_lang_def=SHOPPRO_BOL_Service::getInstance()->get_system_lang_id();//defa
 $seo_title=stripslashes($value['name']);
 $seo_title=$this->make_seo_url($seo_title,100);
 
-                                $products .="<table style=\"width:99%;margin:auto;\">";
-                                $products .="<tr class=\"ow_alt1\">";
+                                $products .="<div class=\"makan_product_table\" style=\"margin:auto;\">";
+                                $products .="<div class=\"ow_alt1 makan_product_row\">";
 
                                 if ($product_image){
 //                                    $products .="<td style=\"width:100px;border-bottom:1px solid #ddd;\" nowrap=\"nowrap\" valign=\"top\">";
-                                    $products .="<td class=\"ow_alt1\" style=\"width:100%;margin:auto;\" valign=\"top\">";
+                                    $products .="<div class=\"ow_alt1 makan_product_column1\" style=\"margin:auto;\" >";
                                 $products .="<div style=\"display:inline-block;float:left; min-width:330px; border:1px solid:#f00;\">";
                                     $products .="<a href=\"".$product_image."\" rel=\"prettyPhoto[pp_gal]\" title=\"\">";
                                     $products .= "<img src=\"".$product_image."\" border=\"0\" width=\"300px\" title=\"".stripslashes($value['name'])."\" align=\"left\" style=\"margin:10px;\">";
@@ -7559,7 +7561,7 @@ if (OW::getConfig()->getValue('shoppro', 'max_product_desc_chars')>0){
 //----info end
 
 //---g start
-                $products .="<div class=\"ow_alt".$curent_revers."\" clearfix\" style=\"width:100%;float:right;text-align:center;font-size:14px;display:block;margin:4px;\">";
+                $products .="<div class=\"ow_alt".$curent_revers. " clearfix\" style=\"width:100%;float:right;text-align:center;font-size:14px;display:block;margin:4px;\">";
 /*
                 $product_image="ow_userfiles/plugins/shoppro/images/product_".$value['id'].".jpg";
                 if (is_file("./".$product_image)){
@@ -7591,7 +7593,7 @@ if (OW::getConfig()->getValue('shoppro', 'max_product_desc_chars')>0){
 
 
 
-                                $products .="</td>";
+                                $products .="</div>";
 //class="clearfix ow_alt2"
 
 
@@ -7609,7 +7611,7 @@ if (OW::getConfig()->getValue('shoppro', 'max_product_desc_chars')>0){
 
 
 //                               $products .="<td class=\"ow_alt2\" style=\"width:55px;text-align:center;".$bg.";display:block;float:right;\" valign=\"top\" >";
-                            $products .="<td class=\"ow_alt2\" style=\"min-width:155px;text-align:center;".$bg.";display:block;float:right;\" valign=\"top\" >";
+                            $products .="<div class=\"ow_alt2 makan_product_column2\" style=\"$bg\" >";
 
 
 
@@ -7617,7 +7619,7 @@ if (OW::getConfig()->getValue('shoppro', 'max_product_desc_chars')>0){
 
 
                             if (OW::getConfig()->getValue('shoppro', 'mode_membercanselingbypoints')==1 AND $value['type_ads']==2 AND $value['price']>0){//------------------------------------------------------pay by credit ZOOM2
-                                $products .="<div class=\"ow_alt".$curent_revers."\" clearfix\" style=\"width:100%;float:right;text-align:center;font-size:14px;display:block;margin:0px;\">";
+                                $products .="<div class=\"ow_alt".$curent_revers." clearfix\" style=\"width:100%;float:right;text-align:center;font-size:14px;display:block;margin:0px;\">";
 //                                $products .= "<strong>".$value['price']."<span style=\"font-size:8px;\">&nbsp;".$value['curency']."</span></strong>";
                                 $products .= "<strong>".$value['price']."<span style=\"font-size:8px;\">&nbsp;".OW::getLanguage()->text('shoppro', 'product_credits')."</span></strong>";
                                 $products .="</div>";
@@ -7636,11 +7638,11 @@ if (OW::getConfig()->getValue('shoppro', 'max_product_desc_chars')>0){
 //                                    $products .=OW::getLanguage()->text('shoppro', 'bay_error_item_wassaled');
 //                                    $products .="</div>";
                                 if ($value['active']==-1){
-                                    $products .="<div class=\"ow_alt".$curent_revers."\" clearfix\" style=\"text-align:center;color:#f00;\">";
+                                    $products .="<div class=\"ow_alt".$curent_revers." clearfix\" style=\"text-align:center;color:#f00;\">";
                                     $products .=OW::getLanguage()->text('shoppro', 'product_table_deleted');
                                     $products .="</div>";
                                 }else if ($value['active']!=1){
-                                    $products .="<div class=\"ow_alt".$curent_revers."\" clearfix\" style=\"text-align:center;color:#f00;\">";
+                                    $products .="<div class=\"ow_alt".$curent_revers." clearfix\" style=\"text-align:center;color:#f00;\">";
                                     $products .=OW::getLanguage()->text('shoppro', 'product_table_moderation');
                                     $products .="</div>";
                                 }else if (!$id_user OR $value['id_owner']!=$id_user){
@@ -7761,7 +7763,7 @@ $products .="<div id=\"shop_dialog_d1\" dial=\"d1\" class=\"shop_dialog\">
 
                         if (!$value['has_options']){
 //                                $products .="<div class=\"ow_alt".$curent_revers."\" clearfix\" style=\"width:100%;float:right;text-align:center;display:block;margin:0px;\">";
-                                $products .="<div class=\"ow_alt\" clearfix\" style=\"width:100%;float:right;text-align:center;display:block;margin:0px;\">";
+                                $products .="<div class=\"ow_alt clearfix\" style=\"width:100%;float:right;text-align:center;display:block;margin:0px;\">";
 //                                    $products .="<div style=\"text-align:center;display:block;font-size:16px;;margin:8px;\">";
                                     $products .="<strong style=\"font-size:16px;\">".$value['price']."<span style=\"font-size:9px;\">&nbsp;".$value['curency']."</span></strong>";
 //                                    $products .="</div>";
@@ -7793,11 +7795,11 @@ $products .="<div id=\"shop_dialog_d1\" dial=\"d1\" class=\"shop_dialog\">
 //                                    $products .=OW::getLanguage()->text('shoppro', 'bay_error_item_wassaled');
 //                                    $products .="</div>";
                                 if ($value['active']==-1){
-                                    $products .="<div class=\"ow_alt".$curent_revers."\" clearfix\" style=\"text-align:center;color:#f00;\">";
+                                    $products .="<div class=\"ow_alt".$curent_revers." clearfix\" style=\"text-align:center;color:#f00;\">";
                                     $products .=OW::getLanguage()->text('shoppro', 'product_table_deleted');
                                     $products .="</div>";
                                 }else if ($value['active']!=1){
-                                    $products .="<div class=\"ow_alt".$curent_revers."\" clearfix\" style=\"text-align:center;color:#f00;\">";
+                                    $products .="<div class=\"ow_alt".$curent_revers." clearfix\" style=\"text-align:center;color:#f00;\">";
                                     $products .=OW::getLanguage()->text('shoppro', 'product_table_moderation');
                                     $products .="</div>";
                                 }else if (!$id_user OR $value['id_owner']!=$id_user){
@@ -8195,7 +8197,7 @@ $products .= "<div class=\"ow_box_cap ow_dnd_configurable_component clearfix\">
 
 
                                 if ($value['price']>0){
-                                    $products .="<div class=\"ow_alt".$curent_revers."\" clearfix\" style=\"text-align:center;font-size:14px;margin:0px;\">";
+                                    $products .="<div class=\"ow_alt".$curent_revers." clearfix\" style=\"text-align:center;font-size:14px;margin:0px;\">";
                                     $products .= "<strong>".$value['price']."<span style=\"font-size:8px;\">&nbsp;".$value['curency']."</span></strong>";
                                     $products .="</div>";
                                 }
@@ -8454,32 +8456,32 @@ $products .="<br/>";
 
 if (!OW::getConfig()->getValue('shoppro', 'hide_seller_avatar_onthelist')){
                                 if ($uimg){
-                                    $products .="<div class=\"ow_alt".$curent_revers."\" clearfix\" style=\"text-align:center;\">";
+                                    $products .="<div class=\"ow_alt".$curent_revers." clearfix\" style=\"text-align:center;\">";
                                         $products .=OW::getLanguage()->text('shoppro', 'product_table_seler').": ";
                                     $products .="</div>";
-                                    $products .="<div class=\"ow_alt".$curent_revers."\" clearfix\" style=\"text-align:center;\">";
+                                    $products .="<div class=\"ow_alt".$curent_revers." clearfix\" style=\"text-align:center;\">";
                                         $products .="<a href=\"".$uurl."\" style=\"display:inline;font-size:14px;font-weight:bold;\">";
                                         $products .="<img src=\"".$uimg."\" title=\"".$dname."\" width=\"45px\" style=\"border:0;margin:10px;align:left;display:inline;\" align=\"center\" >";
                                         $products .="</a>";
                                     $products .="</div>";
-                                    $products .="<div class=\"ow_alt".$curent_revers."\" clearfix\" style=\"text-align:center;\">";
+                                    $products .="<div class=\"ow_alt".$curent_revers." clearfix\" style=\"text-align:center;\">";
                                         $products .="<a href=\"".$uurl."\" style=\"display:inline;font-size:14px;font-weight:bold;\">";
                                         $products .=$dname;
                                         $products .="</a>";
                                     $products .="</div>";
 
                                 }else{
-                                    $products .="<div class=\"ow_alt".$curent_revers."\" clearfix\" style=\"text-align:center;\">";
+                                    $products .="<div class=\"ow_alt".$curent_revers." clearfix\" style=\"text-align:center;\">";
                                         $products .=OW::getLanguage()->text('shoppro', 'product_table_seler').": ";
                                     $products .="</div>";
 
-                                    $products .="<div class=\"ow_alt".$curent_revers."\" clearfix\" style=\"text-align:center;\">";
+                                    $products .="<div class=\"ow_alt".$curent_revers." clearfix\" style=\"text-align:center;\">";
                                         $products .="<a href=\"".$uurl."\" style=\"display:inline;font-size:14px;font-weight:bold;\">";
                                         $products .="<img src=\"".$curent_url."ow_static/themes/".OW::getConfig()->getValue('base', 'selectedTheme')."/images/no-avatar.png\" title=\"".OW::getLanguage()->text('search', 'index_hasnotimage')."\" width=\"45px\" style=\"border:0;margin:10px;align:left;display:inline;\" align=\"center\" >";
                                         $products .="</a>";
                                     $products .="</div>";
 
-                                    $products .="<div class=\"ow_alt".$curent_revers."\" clearfix\" style=\"text-align:center;\">";
+                                    $products .="<div class=\"ow_alt".$curent_revers." clearfix\" style=\"text-align:center;\">";
                                         $products .="<a href=\"".$uurl."\" style=\"display:inline;font-size:14px;font-weight:bold;\">";
                                         $products .=$dname;
                                         $products .="</a>";
@@ -8493,21 +8495,21 @@ if ($id_user>0 AND $value['id_owner']==$id_user){
     $products .="<hr/>";
 //    $products .="<a class=\"ow_add_content ow_alt".$curent_revers." ow_ic_ok\" href=\"".$curent_url."product/".$value['id']."/edit\" title=\"".OW::getLanguage()->text('shoppro', 'product_table_active')."\">".OW::getLanguage()->text('shoppro', 'product_table_active')."</a>";
 //    $products .="<a class=\"ow_add_content ow_alt".$curent_revers." ow_ic_ok\" href=\"".$curent_url."product/".$value['id']."/edit\" title=\"".OW::getLanguage()->text('shoppro', 'product_table_moderation')."\">".OW::getLanguage()->text('shoppro', 'product_table_moderation')."</a>";
-    $products .="<div class=\"ow_alt".$curent_revers."\" clearfix\" style=\"text-align:center;\">";
+    $products .="<div class=\"ow_alt".$curent_revers." clearfix\" style=\"text-align:center;\">";
     if ($value['items']<1){
-        $products .="<div class=\"ow_alt".$curent_revers."\" clearfix\" style=\"text-align:center;color:#f00;\">";
+        $products .="<div class=\"ow_alt".$curent_revers." clearfix\" style=\"text-align:center;color:#f00;\">";
         $products .=OW::getLanguage()->text('shoppro', 'bay_error_item_wassaled');
         $products .="</div>";
     }else if ($value['active']==1){
-        $products .="<div class=\"ow_alt".$curent_revers."\" clearfix\" style=\"text-align:center;color:#080;\">";
+        $products .="<div class=\"ow_alt".$curent_revers." clearfix\" style=\"text-align:center;color:#080;\">";
         $products .=OW::getLanguage()->text('shoppro', 'product_table_active');
         $products .="</div>";
     }else if ($value['active']==-1){
-        $products .="<div class=\"ow_alt".$curent_revers."\" clearfix\" style=\"text-align:center;color:#f00;\">";
+        $products .="<div class=\"ow_alt".$curent_revers." clearfix\" style=\"text-align:center;color:#f00;\">";
         $products .=OW::getLanguage()->text('shoppro', 'product_table_deleted');
         $products .="</div>";
     }else{
-        $products .="<div class=\"ow_alt".$curent_revers."\" clearfix\" style=\"text-align:center;color:#f00;\">";
+        $products .="<div class=\"ow_alt".$curent_revers." clearfix\" style=\"text-align:center;color:#f00;\">";
         $products .=OW::getLanguage()->text('shoppro', 'product_table_moderation');
         $products .="</div>";
     }
@@ -8808,7 +8810,7 @@ if (!OW::getConfig()->getValue('shoppro', 'hide_product_small_details')){
 
 
 
-                            $products .="</td>";
+                            $products .="</div>";
 //--------------------------------------------------------------------koniec klawisza kup i profilu na zoomie
 
 
@@ -8818,8 +8820,8 @@ if (!OW::getConfig()->getValue('shoppro', 'hide_product_small_details')){
 
 
 
-                                $products .="</tr>";
-                                $products .="</table>";
+                                $products .="</div>";
+                                $products .="</div>";
 
 //-----tlo
 $products .="<div id=\"shop_overlay\" class=\"shop_dialog_overlay\"></div>";
