@@ -1,0 +1,163 @@
+<?php
+
+/***
+ * This software is intended for use with Oxwall Free Community Software
+ * http://www.oxwall.org/ and is a proprietary licensed product.
+ * For more information see License.txt in the plugin folder.
+
+ * =============================================================================
+ * Copyright (c) 2012 by Aron. All rights reserved.
+ * =============================================================================
+
+
+ * Redistribution and use in source and binary forms, with or without modification, are not permitted provided.
+ * Pass on to others in any form are not permitted provided.
+ * Sale are not permitted provided.
+ * Sale this product are not permitted provided.
+ * Gift this product are not permitted provided.
+ * This plugin should be bought from the developer by paying money to PayPal account: biuro@grafnet.pl
+ * Legal purchase is possible only on the web page URL: http://www.oxwall.org/store
+ * Modyfing of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ * Modifying source code, all information like:copyright must remain.
+ * Official website only: http://test.a6.pl
+ * Full license available at: http://test.a6.pl
+
+
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+ * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+ * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED
+ * AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+***/
+
+
+Updater::getLanguageService()->importPrefixFromZip(dirname(__FILE__).DS.'langs.zip', 'shoppro');
+/*
+$config = OW::getConfig();
+if ( !$config->configExists('shoppro', 'menu_colbut_sub_menu_bg') ){
+    $config->addConfig('shoppro', 'menu_colbut_sub_menu_bg', "", '');
+}
+if ( !$config->configExists('shoppro', 'menu_colbut_bg_color') ){
+    $config->addConfig('shoppro', 'menu_colbut_bg_color', "#FFFFFF", '');
+}
+if ( !$config->configExists('shoppro', 'defaut_view') ){
+    $config->addConfig('shoppro', 'defaut_view', "list-view", '');
+}
+if ( !$config->configExists('shoppro', 'item_content_thumbal_height') ){
+    $config->addConfig('shoppro', 'item_content_thumbal_height', "100", '');
+}
+if ( !$config->configExists('shoppro', 'item_image_thumbal_height') ){
+    $config->addConfig('shoppro', 'item_image_thumbal_height', "160", '');
+}
+if ( !$config->configExists('shoppro', 'item_thumbal_width') ){
+    $config->addConfig('shoppro', 'item_thumbal_width', "31", '');
+}
+if ( !$config->configExists('shoppro', 'item_price_backgroud_color') ){
+    $config->addConfig('shoppro', 'item_price_backgroud_color', "#1C64A1", '');
+}
+if ( !$config->configExists('shoppro', 'item_background_content_color') ){
+    $config->addConfig('shoppro', 'item_background_content_color', "#F1F1F1", '');
+}
+if ( !$config->configExists('shoppro', 'item_border_color') ){
+    $config->addConfig('shoppro', 'item_border_color', "#D7D7D7", '');
+}
+*/
+
+/*
+$config = OW::getConfig();
+if ( !$config->configExists('shoppro', 'show_askbutton') ){
+    $config->addConfig('shoppro', 'show_askbutton', "0", '');
+}
+if ( !$config->configExists('shoppro', 'hide_timeout_product') ){
+    $config->addConfig('shoppro', 'hide_timeout_product', "1", '');
+}
+*/
+
+/*
+$config = OW::getConfig();
+if ( !$config->configExists('shoppro', 'comments_require_aproved') ){
+    $config->addConfig('shoppro', 'comments_require_aproved', "0", '');
+}
+if ( !$config->configExists('shoppro', 'turn_on_ciew_couter') ){
+    $config->addConfig('shoppro', 'turn_on_ciew_couter', "0", '');
+}
+*/
+/*
+$config = OW::getConfig();
+if ( !$config->configExists('shoppro', 'show_quty_inproduct') ){
+    $config->addConfig('shoppro', 'show_quty_inproduct', "1", '');
+}
+
+if ( !$config->configExists('shoppro', 'hide_seller_avatar_onthelist') ){
+    $config->addConfig('shoppro', 'hide_seller_avatar_onthelist', "1", '');
+}
+if ( !$config->configExists('shoppro', 'hide_product_small_details') ){
+    $config->addConfig('shoppro', 'hide_product_small_details', "1", '');
+}
+if ( !$config->configExists('shoppro', 'hide_seller_small_icon') ){
+    $config->addConfig('shoppro', 'hide_seller_small_icon', "1", '');
+}
+if ( !$config->configExists('shoppro', 'hide_more_button_onproductlist') ){
+    $config->addConfig('shoppro', 'hide_more_button_onproductlist', "1", '');
+}
+if ( !$config->configExists('shoppro', 'try_hide_empty_category') ){
+    $config->addConfig('shoppro', 'try_hide_empty_category', "1", '');
+}
+*/
+
+
+/*
+
+try {
+    $sql = "ALTER TABLE  `".OW_DB_PREFIX."shoppro_products` ADD  `data_add_ads` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ,ADD  `data_from_ip` VARCHAR( 64 ) NULL DEFAULT NULL";
+    Updater::getDbo()->query($sql);
+}
+
+catch ( Exception $e )
+{
+    $errors[] = $e;
+}
+
+
+if ( !empty($errors) )
+{
+//    print_r($errors);
+}
+*/
+
+
+
+/*
+$plname="shoppro";
+$source=OW_DIR_PLUGIN.$plname. DS.'static'. DS;
+$pluginStaticDir = OW_DIR_STATIC .'plugins'.DS.$plname.DS;
+//CMS_BOL_Service::getInstance()->cpydir($source, $pluginStaticDir);
+//echo "sss";exit;
+if (!function_exists('shoppro_cms_cpydir')) {    
+    function shoppro_cms_cpydir($source,$dest){
+        if(is_dir($source)) {
+            $dir_handle=opendir($source);
+            while($file=readdir($dir_handle)){
+                if($file!="." && $file!=".."){
+                    if(is_dir($source.$file)){
+
+                        if (!is_dir($dest.$file.DS)) mkdir($dest.$file.DS);
+
+                        shoppro_cms_cpydir($source.$file.DS, $dest.$file.DS);
+                    } else {
+//echo $source.$file."<br>".$dest.$file."<hr>";
+//                        if (!is_file($dest.$file)) copy($source.$file, $dest.$file);
+                         copy($source.$file, $dest.$file);
+                    }
+                }
+            }
+            closedir($dir_handle);
+        } else {
+            copy($source, $dest);
+        }
+    }
+}
+shoppro_cms_cpydir($source, $pluginStaticDir);
+*/

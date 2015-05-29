@@ -1,0 +1,317 @@
+<?php
+
+/***
+ * This software is intended for use with Oxwall Free Community Software
+ * http://www.oxwall.org/ and is a proprietary licensed product.
+ * For more information see License.txt in the plugin folder.
+
+ * =============================================================================
+ * Copyright (c) 2012 by Aron. All rights reserved.
+ * =============================================================================
+
+
+ * Redistribution and use in source and binary forms, with or without modification, are not permitted provided.
+ * Pass on to others in any form are not permitted provided.
+ * Sale are not permitted provided.
+ * Sale this product are not permitted provided.
+ * Gift this product are not permitted provided.
+ * This plugin should be bought from the developer by paying money to PayPal account: biuro@grafnet.pl
+ * Legal purchase is possible only on the web page URL: http://www.oxwall.org/store
+ * Modyfing of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ * Modifying source code, all information like:copyright must remain.
+ * Official website only: http://test.a6.pl
+ * Full license available at: http://test.a6.pl
+
+
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+ * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+ * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED
+ * AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+***/
+
+
+class SHOPPRO_CMP_MenuWidget extends BASE_CLASS_Widget
+{
+
+    public function __construct( BASE_CLASS_WidgetParameter $params )
+    {
+        parent::__construct();
+
+        $service = PostService::getInstance();
+
+        $count = $params->customParamList['count'];
+        $previewLength = $params->customParamList['previewLength'];
+
+        $list = $service->findList(0, $count);
+		
+
+        $posts = array();
+
+        $userService = BOL_UserService::getInstance();
+
+        $postIdList = array();
+        foreach ( $list as $dto )
+        {
+            
+
+            if ( mb_strlen($dto->getTitle()) > 50 )
+            {
+                $dto->setTitle(UTIL_String::splitWord(UTIL_String::truncate($dto->getTitle(), 50, '...')));
+            }
+            $text = $service->processPostText($dto->getPost());
+
+            $posts[] = array(
+                'dto' => $dto,
+                'text' => UTIL_String::splitWord(UTIL_String::truncate($text, $previewLength)),
+                'truncated' => ( mb_strlen($text) > $previewLength ),
+            );
+
+            $idList[] = $dto->getAuthorId();
+            $postIdList[] = $dto->id;
+        }
+
+        $commentInfo = array();
+
+        if ( !empty($idList) )
+        {
+            $avatars = BOL_AvatarService::getInstance()->getDataForUserAvatars($idList, true, false);
+            $this->assign('avatars', $avatars);
+
+            $urls = BOL_UserService::getInstance()->getUserUrlsForList($idList);
+
+            $commentInfo = BOL_CommentService::getInstance()->findCommentCountForEntityList('blog-post', $postIdList);
+
+            $toolbars = array();
+
+            foreach ( $list as $dto )
+            {
+                $toolbars[$dto->getId()] = array(
+                    array(
+                        'class' => 'ow_icon_control ow_ic_user',
+                        'href' => isset($urls[$dto->getAuthorId()]) ? $urls[$dto->getAuthorId()] : '#',
+                        'label' => isset($avatars[$dto->getAuthorId()]['title']) ? $avatars[$dto->getAuthorId()]['title'] : ''
+                    ),
+                    array(
+                        'class' => 'ow_remark',
+                        'label' => UTIL_DateTime::formatDate($dto->getTimestamp())
+                    )
+                );
+            }
+            $this->assign('tbars', $toolbars);
+        }
+
+        $this->assign('commentInfo', $commentInfo);
+        $this->assign('list', $posts);
+
+
+        if ( $service->countPosts() > 0 )
+        {
+            $toolbar = array();
+/*
+            if ( OW::getUser()->isAuthorized('blogs', 'add') )
+            {
+                $toolbar[] = array(
+                        'label' => OW::getLanguage()->text('shoppro', 'add_new2'),
+                        'href' => OW::getRouter()->urlForRoute('post-save-new')
+                    );
+            }
+
+            if ( OW::getUser()->isAuthorized('shoppro', 'view') )
+            {
+                $toolbar[] = array(
+                    'label' => OW::getLanguage()->text('shoppro', 'go_to_blog'),
+                    'href' => Ow::getRouter()->urlForRoute('shop')
+                    );
+            }
+*/
+            if (!empty($toolbar))
+            {
+                $this->setSettingValue(self::SETTING_TOOLBAR, $toolbar);
+            }
+
+        }
+
+    }
+
+    public static function getSettingList()
+    {
+
+        $options = array();
+        $settingList=array();
+/*
+        for ( $i = 3; $i <= 10; $i++ )
+        {
+            $options[$i] = $i;
+        }
+
+        $settingList['count'] = array(
+            'presentation' => self::PRESENTATION_SELECT,
+            'label' => OW::getLanguage()->text('shoppro', 'cmp_widget_post_count'),
+            'optionList' => $options,
+            'value' => 3,
+        );
+        $settingList['previewLength'] = array(
+            'presentation' => self::PRESENTATION_TEXT,
+            'label' => OW::getLanguage()->text('shoppro', 'blog_widget_preview_length_lbl'),
+            'value' => 50,
+        );
+*/
+        return $settingList;
+    }
+
+    public static function getStandardSettingValueList()
+    {
+        $list = array(
+            self::SETTING_TITLE => OW::getLanguage()->text('shoppro', 'main_menu_item'),
+            self::SETTING_SHOW_TITLE => true,
+            self::SETTING_ICON => 'ow_ic_write'
+        );
+
+        return $list;
+    }
+
+    public static function getAccess()
+    {
+        return self::ACCESS_ALL;
+    }
+	
+    public function onBeforeRender() // The standard method of the component that is called before rendering
+    {
+            $content="";
+
+
+        $id_user = OW::getUser()->getId();//citent login user (uwner)
+        $is_admin = OW::getUser()->isAdmin();//iss admin
+            $pluginStaticURL2=OW::getPluginManager()->getPlugin('shoppro')->getStaticUrl();
+            $pluginStaticURL =OW::getPluginManager()->getPlugin('shoppro')->getUserFilesUrl();
+            $pluginStaticDir =OW::getPluginManager()->getPlugin('shoppro')->getUserFilesDir();
+
+                    $curent_url = 'http';
+                    if (isset($_SERVER["HTTPS"])) {$curent_url .= "s";}
+                    $curent_url .= "://";
+                    $curent_url .= $_SERVER["SERVER_NAME"]."/";
+$curent_url=OW_URL_HOME;                                        
+$from_config=$curent_url;
+$from_config=str_replace("https://","",$from_config);
+$from_config=str_replace("http://","",$from_config);
+$trash=explode($from_config,$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"]);
+
+//$url_detect=$trash[1];
+$trash2=explode("?",$trash[1]);
+$url_detect=$trash2[0];
+
+
+if ($url_detect[0]=="/") {
+    $url_detect=substr($url_detect,1);
+}
+list($url_detect)=explode("/",$url_detect);
+
+
+//print_r($trash);
+//echo $url_detect;
+
+		
+        if ($url_detect=="shop" OR $url_detect=="shoppro" OR $url_detect=="shoppro_adm" OR $url_detect=="basket" OR $url_detect=="order" OR $url_detect=="ordershop" OR $url_detect=="product"){
+//        if (1==1){
+            if ($is_admin){
+                $query = "SELECT * FROM " . OW_DB_PREFIX. "shoppro_categories 
+                        ORDER BY active DESC, sort, name";
+            }else{
+                $query = "SELECT * FROM " . OW_DB_PREFIX. "shoppro_categories 
+                        WHERE active  = '1' ORDER BY sort, name";
+            }
+
+
+            $content_menu="";
+            $arr = OW::getDbo()->queryForList($query);
+			//$value=array();
+            foreach ( $arr as $value )
+            {
+                if ($is_admin){
+                    $content_menu .="<li style=\"list-style-type:none;list-style-position: inside;\">";
+                }else{
+                    $content_menu .="<li style=\"list-style-position: inside;list-style-type: disc;\">";
+                }
+
+                if ($is_admin){
+/*
+//                    $content_menu .="&nbsp;&nbsp;";
+                    $content_menu .="<a href=\"".$curent_url."shoppro_adm/del/".$value['id']."\" onclick=\"return confirm('Are you sure you want to delete?');\"   title=\"".OW::getLanguage()->text('shoppro', 'menu_delete_cat')."\">";
+                    $content_menu .="<b style=\"color:#f00;\">[-]</b>";
+                    $content_menu .="</a>";
+//                    $content_menu .="&nbsp;|&nbsp;";
+                    $content_menu .="<a href=\"".$curent_url."shoppro_adm/edit/".$value['id']."\" title=\"".OW::getLanguage()->text('shoppro', 'menu_edit_cat')."\">";
+                    $content_menu .="<b style=\"color:#080;\">[*]</b>";
+                    $content_menu .="</a>";
+*/
+//        $content_menu .="<span style=\"\" class=\"ow_nowrap\">";
+            $content_menu .="<a href=\"".$curent_url."shoppro_adm/edit/".$value['id']."\" title=\"".OW::getLanguage()->text('shoppro', 'menu_edit_cat')."\"><img src=\"".$pluginStaticURL2."edit3.gif\" style=\"border:0;max-width:14px;\"></a>";
+//        $content_menu .="</span>";
+            $content_menu .="&nbsp;";
+//        $content_menu .="<span style=\"\" class=\"ow_nowrap\">";
+            $content_menu .="<a onclick=\"return confirm('Are you sure you want to delete?');\" href=\"".$curent_url."shoppro_adm/del/".$value['id']."/del\"><img src=\"".$pluginStaticURL2."erase3.gif\" title=\"".OW::getLanguage()->text('shoppro', 'menu_delete_cat')."\" style=\"border:0;max-width:14px;\"></a>";
+//        $content_menu .="</span>";
+            $content_menu .="&nbsp;";
+                }
+
+                $content_menu .="<a href=\"".$curent_url."shoppro/".$value['id']."\">";
+                if (!$value['active']) $content_menu .="<i style=\"color:#f00;\">";
+                $title=stripslashes($value['name']);
+                if (OW::getConfig()->getValue('shoppro', 'max_cat_title_chars')>0){
+                    $max=OW::getConfig()->getValue('shoppro', 'max_cat_title_chars');
+                }else{
+                    $max=20;
+                }
+                $title=mb_substr($title,0,$max);
+                $content_menu .=$title;
+                if (!$value['active']) $content_menu .="</i>";
+                $content_menu .="</a>";
+
+
+
+                $content_menu .="</li>";
+
+            }
+
+            if ($is_admin){
+//                $content .="<a href=\"".$curent_url."shoppro_adm/add/new\" title=\"".OW::getLanguage()->text('shoppro', 'menu_addnew_cat')."\">";
+//                $content .="<b style=\"color:#f00;\">[+]&nbsp;".OW::getLanguage()->text('shoppro', 'menu_addnew_cat')."</b>";
+//                $content .="</a>";
+            $content .="<a href=\"".$curent_url."shoppro_adm/add/new\" title=\"".OW::getLanguage()->text('shoppro', 'menu_addnew_cat')."\">";
+            $content .="<div class=\"clearfix ow_submit ow_smallmargin\">
+                <div class=\"ow_center\">
+                    <span class=\"ow_button\">
+                        <span class=\" ow_positive\">
+                            <input type=\"button\" name=\"ok\" value=\"".OW::getLanguage()->text('shoppro', 'menu_addnew_cat')."\" class=\"ow_ic_add ow_positive\">
+                        </span>
+                    </span>
+                </div>
+            </div>";
+                $content .="</a>";
+                $content .="<hr>";
+            }
+
+            if ($content_menu){
+
+
+                $content .="<div style=\"margin:0px;\"><ul>".$content_menu."</ul></div>";
+            }
+
+        }else{
+            $content  ="<script>\n";
+            $content .="\$(document).ready(function(){\n";
+            $content .="\$(\".index-SHOPPRO_CMP_MenuWidget\").empty().remove();\n";
+            $content .="    });\n";
+            $content .="</script>";
+        }
+
+
+
+		$this->assign('content', $content);
+	}
+	
+}
+

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin>
+	<name>Shop Pro</name>
+	<key>shoppro</key>
+	<description>Profesional Shop, sell your products easily ...</description>
+    <author>Aron</author>
+    <authorEmail>aron1aron@gmail.com</authorEmail>
+	<authorUrl>http://oxwall.a6.pl</authorUrl>
+	<developerKey>dd00b1f44ad08b29c885cde8e035356a</developerKey>
+    <build>4053</build>
+    <copyright>(C) 2012 by Aron. All rights reserved.</copyright>
+	<license>The Aron License</license>
+    <licenseUrl>http://oxwall.a6.pl</licenseUrl>
+</plugin>
