@@ -2842,7 +2842,7 @@ $curent_lang_def=SHOPPRO_BOL_Service::getInstance()->get_system_lang_id();//defa
             if (($menu OR $is_admin )AND (OW::getConfig()->getValue('shoppro', 'mode')==0 OR !OW::getConfig()->getValue('shoppro', 'mode') )){
                 $content .="<div style=\"display:inline-block;width:98%;margin:auto;\" >";//ZZZ zisednaru AAA
 
-    	            $content .="<div style=\"position:relative;float:right;display:inline-block;width:23%;\">";
+    	            $content .="<div class=\"makan_category_container\">";
                         $content .="<div class=\"ow_dnd_widget index-BASE_CMP_MenuWidget\" style=\"width:205px;;margin:auto;\">
                             <div class=\"ow_box_cap ow_dnd_configurable_component clearfix\" >
                                 <div class=\"ow_box_cap_right\">
