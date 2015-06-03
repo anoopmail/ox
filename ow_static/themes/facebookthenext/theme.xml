@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+
+<theme>
+
+    <name>Facebook The Next</name>
+
+    <key>facebookthenext</key>
+
+    <version>1.0</version>
+
+    <compatibility>1.7</compatibility>
+
+    <description>Facebook The Next theme for Oxwall software. Version compatibility 1.7</description>
+
+    <author>OW Visuals</author>
+
+    <authorEmail>slash_198x@yahoo.com</authorEmail>
+
+    <developerKey>575cd14e4777358a09bddfa2f51c0ef5</developerKey>
+
+    <build>2222</build>
+
+    <authorUrl>http://ow-visuals.com</authorUrl>
+
+    <copyright>(C) 2014 OW Visuals. All rights reserved.</copyright>
+
+    <license>OSCL</license>
+
+    <licenseUrl>http://www.oxwall.org/store/oscl</licenseUrl>
+
+    
+
+</theme>
