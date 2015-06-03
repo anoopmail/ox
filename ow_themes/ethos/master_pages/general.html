@@ -1,0 +1,83 @@
+<script type="text/javascript">
+function openMobileMenu() {
+    if ($('#mobileMenu').hasClass('opened')) {
+        $('#mobileMenu').removeClass('opened');
+        $('#mobilemenu').removeClass('opened');
+        $('#page_content').removeClass('blurred');
+        $('.ow_chat').removeClass('blurry');
+    }
+    else {
+        $('#mobileMenu').addClass('opened');
+        $('#mobilemenu').addClass('opened');
+        $('#page_content').addClass('blurred');
+        $('.ow_chat').addClass('blurry');
+    }
+}
+</script>
+<div class="ow_header">
+    <div class="ow_canvas">
+	<div class="ow_page" style="position: relative; height: 0px; margin-left: 0px;">
+		{component class='BASE_CMP_Console'}
+<div class="ow_logo">
+<div id="mobilemenu" onclick="openMobileMenu();"></div>
+    <h2><a href="{$siteUrl}">{*$siteName*}</a></h2>
+    <div class="ow_tagline">{*$siteTagline*}</div>
+</div>
+
+<div id="mainMenu">
+{$main_menu}
+</div>
+
+    <div class="ow_menu_shadow"></div>
+    </div>
+    </div>
+</div>
+<div class="ow_page_container">
+	<div class="ow_canvas clearfix">
+		<div class="ow_page clearfix" id="page_content">
+		    <h1 class="ow_stdmargin {$heading_icon_class}">{$heading}</h1>
+	        <div class="ow_content">
+                {add_content key='base.add_page_top_content'}
+    	        {$content}
+                {add_content key='base.add_page_bottom_content'}
+<div class="mobilefooter">
+<div class="ow_footer">
+	<div class="ow_canvas">
+		<div class="ow_page clearfix">
+			{$bottom_menu}
+			<div class="ow_copyright">
+				{text key='base+copyright'}
+			</div>
+			<div style="padding-top: 30px; text-align: center;">
+				{$bottomPoweredByLink}
+			</div>
+		</div>
+	</div>
+</div>  
+</div>
+    	    </div>
+        </div>
+    </div>
+</div>
+
+<div class="nomobile">
+<div class="ow_footer">
+	<div class="ow_canvas">
+		<div class="ow_page clearfix">
+			{$bottom_menu}
+			<div class="ow_copyright">
+				{text key='base+copyright'}
+			</div>
+			<div style="padding-bottom: 30px; padding-left: 700px;">
+				{$bottomPoweredByLink}
+	    </div>
+	</div>
+    </div>
+</div>   
+</div>
+
+<div id="mobileMenu">
+{$main_menu}
+</div>
+
+{decorator name='floatbox'}
